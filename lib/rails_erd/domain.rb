@@ -114,7 +114,9 @@ module RailsERD
     end
 
     def models
-      @models ||= @source_models.select { |model| check_model_validity(model) }.reject { |model| check_habtm_model(model) }
+      @models ||= @source_models.select { |model| check_model_validity(model) }
+        .reject { |model| model.name.nil? }
+        .reject { |model| check_habtm_model(model) }
     end
 
     def associations
